@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Select Payment Plan</title>
+<style>
+  body {
+    margin: 0; padding: 0;
+    background-color: #0d0d0d;
+    font-family: 'Courier New', Courier, monospace;
+    color: #00ff88;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+  }
+  h2 {
+    margin-bottom: 40px;
+    text-shadow: 0 0 8px #00ff88;
+  }
+  .plan-button {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto;
+    padding: 16px;
+    font-size: 18px;
+    color: #0d0d0d;
+    background-color: #00ff88;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  .plan-button:hover {
+    background-color: #00cc77;
+    box-shadow: 0 0 12px #00ff88;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Select Your Payment Plan</h2>
+
+    <button class="plan-button" onclick="goToUTR('1 DAY', 70)">1 DAY - ₹70</button>
+    <button class="plan-button" onclick="goToUTR('1 WEEK', 300)">1 WEEK - ₹300</button>
+    <button class="plan-button" onclick="goToUTR('1 MONTH', 550)">1 MONTH - ₹550</button>
+    <button class="plan-button" onclick="goToUTR('PERMANENT', 700)">PERMANENT - ₹700</button>
+  </div>
+
+<script>
+  function getParam(name) {
+    const url = new URL(window.location.href);
+    return url.searchParams.get(name) || "";
+  }
+  
+  function goToUTR(plan, amount) {
+    const username = getParam("username");
+    if (!username) {
+      alert("Username missing! Please go back and enter your username.");
+      return;
+    }
+    // Redirect to UTR page with username and plan info
+    const planText = `${plan} - ₹${amount}`;
+    window.location.href = `utr.html?username=${encodeURIComponent(username)}&plan=${encodeURIComponent(planText)}`;
+  }
+</script>
+</body>
+</html>

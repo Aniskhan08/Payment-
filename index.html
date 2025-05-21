@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Enter Telegram Username</title>
+<style>
+  body {
+    margin: 0; padding: 0;
+    background-color: #0d0d0d;
+    font-family: 'Courier New', Courier, monospace;
+    color: #00ff88;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .container {
+    width: 90%;
+    max-width: 400px;
+    background-color: #1a1a1a;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px #00ff88;
+    text-align: center;
+  }
+  h2 {
+    font-size: 26px;
+    margin-bottom: 25px;
+    text-shadow: 0 0 8px #00ff88;
+  }
+  input[type="text"] {
+    width: 90%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #111;
+    border: none;
+    border-radius: 6px;
+    color: #00ff88;
+    outline: none;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+  button {
+    padding: 12px 28px;
+    font-size: 16px;
+    background-color: transparent;
+    color: #00ff88;
+    border: 2px solid #00ff88;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  button:hover {
+    background-color: #00ff88;
+    color: #0d0d0d;
+    box-shadow: 0 0 10px #00ff88;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Enter Your Telegram Username</h2>
+    <form id="usernameForm">
+      <input type="text" id="username" placeholder="@yourusername" required />
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("usernameForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const username = document.getElementById("username").value.trim();
+
+      if (!username.startsWith('@')) {
+        alert("Please enter username starting with '@'");
+        return;
+      }
+      
+      // Redirect to payment page with username in URL
+      window.location.href = `payment.html?username=${encodeURIComponent(username)}`;
+    });
+  </script>
+</body>
+</html>

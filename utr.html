@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Enter UTR Number</title>
+<style>
+  body {
+    margin: 0; padding: 0;
+    background-color: #0d0d0d;
+    font-family: 'Courier New', Courier, monospace;
+    color: #00ff88;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    width: 90%;
+    max-width: 400px;
+    background: #1a1a1a;
+    padding: 30px 25px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px #00ff88;
+    text-align: center;
+  }
+  h2 {
+    margin-bottom: 30px;
+    text-shadow: 0 0 8px #00ff88;
+  }
+  input[type="text"] {
+    width: 90%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #111;
+    border: none;
+    border-radius: 6px;
+    color: #00ff88;
+    outline: none;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+  button {
+    padding: 12px 28px;
+    font-size: 16px;
+    background-color: transparent;
+    color: #00ff88;
+    border: 2px solid #00ff88;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  button:hover {
+    background-color: #00ff88;
+    color: #0d0d0d;
+    box-shadow: 0 0 10px #00ff88;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Enter UTR Number</h2>
+    <form id="utrForm">
+      <input type="text" id="utr" placeholder="Enter your UTR number" required />
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+<script>
+  function getParam(name) {
+    const url = new URL(window.location.href);
+    return url.searchParams.get(name) || "";
+  }
+
+  document.getElementById("utrForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const utr = document.getElementById("utr").value.trim();
+    const username = getParam("username");
+    const plan = getParam("plan");
+
+    if (!utr) {
+      alert("Please enter UTR number.");
+      return;
+    }
+
+    const botToken = "7645841444:AAHIckJw75kX5OEbEEgeAosbl0m3dkV6v4I";
+    const chatId = "-1002137316346";
+
+    const msg = `𝑪𝑶𝑵𝑮𝑹𝑨𝑻𝑼𝑳𝑨𝑻𝑰𝑶𝑵\n\n` +
+                `𝑼𝑺𝑬𝑹𝑵𝑨𝑴𝑬 : ${username}\n` +
+                `𝑷𝑳𝑨𝑵 : ${plan}\n` +
+                `𝑼𝑻𝑹 𝑵𝑼𝑴𝑩𝑬𝑹 : ${utr}`;
+
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: msg
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        alert("UTR submitted successfully! We will verify soon.");
+        // Optionally clear input or redirect
+        document.getElementById("utr").value = "";
+      } else {
+        alert("Failed to send message to Telegram.");
+      }
+    })
+    .catch(err => {
+      alert("Error sending message.");
+      console.error(err);
+    });
+  });
+</script>
+</body>
+</html>
